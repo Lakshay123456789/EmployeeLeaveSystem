@@ -36,8 +36,8 @@ builder.Services.AddAuthentication(options =>
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(o =>
 {
-    o.SaveToken = true;
-    o.RequireHttpsMetadata = true;
+    //o.SaveToken = true;
+    //o.RequireHttpsMetadata = true;
     o.TokenValidationParameters = new TokenValidationParameters
     {
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
