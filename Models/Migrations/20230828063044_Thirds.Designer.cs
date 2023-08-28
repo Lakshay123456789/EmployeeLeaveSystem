@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Models.DbContext;
 
@@ -11,9 +12,10 @@ using Models.DbContext;
 namespace Models.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20230828063044_Thirds")]
+    partial class Thirds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,14 +54,14 @@ namespace Models.Migrations
                         new
                         {
                             Id = "2c5e174e-3b0e-446f-86af-483d56fd7210",
-                            ConcurrencyStamp = "8bd00b12-264c-4327-ac34-ba305f41c376",
+                            ConcurrencyStamp = "bd5c0b2e-a05b-4dec-bf6c-0baeb5a5bf07",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "F5ADAFD5-A464-485E-A924-AAFE642619FE",
-                            ConcurrencyStamp = "c8d30af5-d038-4ed4-b720-c6df43658d74",
+                            ConcurrencyStamp = "90feb4e7-7832-4329-a022-afe11176eb1d",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });
@@ -231,9 +233,8 @@ namespace Models.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PhoneNumber")
+                        .HasColumnType("int");
 
                     b.Property<int>("PinCode")
                         .HasColumnType("int");
@@ -244,37 +245,6 @@ namespace Models.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Employees");
-                });
-
-            modelBuilder.Entity("Models.Entity_Model.LeaveRequest", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("EmployeeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("EndDate")
-                        .IsRequired()
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("StartDate")
-                        .IsRequired()
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("LeaveRequests");
                 });
 
             modelBuilder.Entity("Models.Entity_Model.User", b =>
@@ -353,16 +323,16 @@ namespace Models.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "43235baf-27d4-4deb-88c6-b2edd0efaaa8",
+                            ConcurrencyStamp = "206b299a-5cfe-4357-9e0a-8c60b05acf75",
                             Email = "Admin123@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "ADMIN",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN123@GMAIL.COM",
                             NormalizedUserName = "ADMIN123@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO67F8Y64DBdYSpJnPVdo/vdc/Egneqk6L4SvlYUjI2ZHojNc1PrFobM6El2ZGzxHQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDv6XVwaB8zIxIq4hiT3ATf3DwA/XiQarzwEyXy7pZAMCFRJHHGaB+o1GNFmiAx2+w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b16f555e-5d89-4b25-a3d2-43981e101d5a",
+                            SecurityStamp = "0f746329-320e-4f27-bc3b-b8de7e4d42b1",
                             TwoFactorEnabled = false,
                             UserName = "Admin123@gmail.com"
                         },
@@ -370,16 +340,16 @@ namespace Models.Migrations
                         {
                             Id = "C4623A85-4A75-4020-BD41-D22B366F8ED7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "05d3953a-cc20-405e-b0fb-1862b383e3e8",
+                            ConcurrencyStamp = "e5cae0a5-a0c3-49dd-a994-a598bd67818d",
                             Email = "User123@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "USER",
                             LockoutEnabled = false,
                             NormalizedEmail = "USER123@GMAIL.COM",
                             NormalizedUserName = "USER123@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFPVTn23fpjXfHFUAdc9VpjhqqNkY1lDTJN4OXnmsGsIELCluvZTnuIJKbNYWG4rhw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEEn5kD1raPhkSSUMDaCd7f7tX59iS5pAPgqwXr/79Qa4AXWx9u1t3sXc2gE7JXPUw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5b5f4653-4ae0-435d-9c07-6e2460ed0af0",
+                            SecurityStamp = "a3870c6e-f998-4632-b361-b06c83ff7293",
                             TwoFactorEnabled = false,
                             UserName = "User123@gmail.com"
                         });

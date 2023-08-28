@@ -1,6 +1,7 @@
 ﻿using DataAccessLayer.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 using Models.DbContext;
+using Models.Entity_Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,56 +13,51 @@ namespace DataAccessLayer.Repository
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         private readonly ApplicationContext _context;
+        private readonly DbSet<T> _table;
 
-        private DbSet<T> table;
-
-        public GenericRepository(ApplicationContext _context)
+        public GenericRepository(ApplicationContext context)
         {
-
-            this._context = _context;
-            table = _context.Set<T>();
-
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _table = _context.Set<T>();
         }
-        public async Task<IEnumerable<T>> GetAll()
-        {
-            return await table.ToListAsync();
-        }
-        public async Task<T> GetById(object id)
-        {
 
-            var Data = await table.FindAsync(id);
-            if (Data == null)
+        public async Task<IEnumerable<T>> GetAllAsync()
+        {
+            return await _table.ToListAsync();
+        }
+
+        public async Task<T> GetByIdAsync(object id)
+        {
+            return await _table.FindAsync(id);
+        }
+
+        public async Task InsertAsync(T entity)
+        {
+            await _table.AddAsync(entity);
+            await SaveAsync();
+        }
+
+        public void Update(T entity)
+        {
+            _table.Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
+        }
+
+        public async Task DeleteAsync(object id)
+        {
+            T entity = await _table.FindAsync(id);
+            if (entity != null)
             {
-                return null;
+                _table.Remove(entity);
+                await SaveAsync();
             }
-            return Data;
         }
-        public async Task Insert(T obj)
-        {
 
-            await table.AddAsync(obj);
-            await _context.SaveChangesAsync();
-
-        }
-        public async Task Update(T obj)
-        {
-            table.Attach(obj);
-
-            _context.Entry(obj).State = EntityState.Modified;
-          await  Save();
-        }
-        public async Task Delete(object id)
-        {
-
-            T existing = await table.FindAsync(id);
-
-            table.Remove(existing);
-
-            await _context.SaveChangesAsync();
-        }
-        public async Task Save()
+        public async Task SaveAsync()
         {
             await _context.SaveChangesAsync();
         }
+
+
     }
 }

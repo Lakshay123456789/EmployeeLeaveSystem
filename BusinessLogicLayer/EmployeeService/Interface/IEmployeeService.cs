@@ -1,13 +1,18 @@
-﻿using Models.Entity_Model;
+﻿using Models.Dto_Model;
+using Models.Entity_Model;
 
 namespace BusinessLogicLayer.EmployeeService.Interface
 {
     public interface IEmployeeService
     {
-        Task AddEmployee(Employee employee);
+        Task<bool> AddEmployee(EmployeeDto model);
+
         Task DeleteEmployee(Guid Id);
         Task<IEnumerable<Employee>> GetAllEmployee();
         Task<Employee> GetEmployeeId(Guid Id);
-        Task UpdateEmployee(Employee employee);
+        Task UpdateEmployee(Guid Id, EmployeeDto employee);
+
+
+
     }
 }

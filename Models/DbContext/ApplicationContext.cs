@@ -19,9 +19,11 @@ namespace Models.DbContext
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ConfigurationUserAndRole();
-
+           
         }
         public DbSet<Employee> Employees { get; set; }
+
+        public DbSet<LeaveRequest> LeaveRequests { get; set; }  
 
         public DbSet<Department> Departments { get; set; }  
     }

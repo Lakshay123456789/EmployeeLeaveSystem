@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Models.DbContext;
 
@@ -11,9 +12,10 @@ using Models.DbContext;
 namespace Models.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20230828104020_Third-One")]
+    partial class ThirdOne
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,14 +54,14 @@ namespace Models.Migrations
                         new
                         {
                             Id = "2c5e174e-3b0e-446f-86af-483d56fd7210",
-                            ConcurrencyStamp = "8bd00b12-264c-4327-ac34-ba305f41c376",
+                            ConcurrencyStamp = "f36a6f9a-8022-4056-abce-8a2aee50975c",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "F5ADAFD5-A464-485E-A924-AAFE642619FE",
-                            ConcurrencyStamp = "c8d30af5-d038-4ed4-b720-c6df43658d74",
+                            ConcurrencyStamp = "5b38abf1-e5fb-4df9-b255-45b0e653ede9",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });
@@ -246,37 +248,6 @@ namespace Models.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("Models.Entity_Model.LeaveRequest", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("EmployeeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("EndDate")
-                        .IsRequired()
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("StartDate")
-                        .IsRequired()
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("LeaveRequests");
-                });
-
             modelBuilder.Entity("Models.Entity_Model.User", b =>
                 {
                     b.Property<string>("Id")
@@ -353,16 +324,16 @@ namespace Models.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "43235baf-27d4-4deb-88c6-b2edd0efaaa8",
+                            ConcurrencyStamp = "23d601f6-f326-4c93-89af-5ab4e2dcd6a4",
                             Email = "Admin123@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "ADMIN",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN123@GMAIL.COM",
                             NormalizedUserName = "ADMIN123@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO67F8Y64DBdYSpJnPVdo/vdc/Egneqk6L4SvlYUjI2ZHojNc1PrFobM6El2ZGzxHQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGT2WpcCuHJPmNEAfyxcSsjlsNPWox8Sf7XBJqvw5pAOp7f/8MEh2GdoNfcbjxJUDg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b16f555e-5d89-4b25-a3d2-43981e101d5a",
+                            SecurityStamp = "44157526-1194-4805-9814-2ffde9c3aa3c",
                             TwoFactorEnabled = false,
                             UserName = "Admin123@gmail.com"
                         },
@@ -370,16 +341,16 @@ namespace Models.Migrations
                         {
                             Id = "C4623A85-4A75-4020-BD41-D22B366F8ED7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "05d3953a-cc20-405e-b0fb-1862b383e3e8",
+                            ConcurrencyStamp = "04434de8-3473-452d-9b3e-97718e26eee8",
                             Email = "User123@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "USER",
                             LockoutEnabled = false,
                             NormalizedEmail = "USER123@GMAIL.COM",
                             NormalizedUserName = "USER123@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFPVTn23fpjXfHFUAdc9VpjhqqNkY1lDTJN4OXnmsGsIELCluvZTnuIJKbNYWG4rhw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIMZPJlsbKVAgVeF/Ex0C89PJsx97CQ52ctwLx/aCDEs6WgERxiIcSCxyk4nnE3zlQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5b5f4653-4ae0-435d-9c07-6e2460ed0af0",
+                            SecurityStamp = "0025ab67-f011-4d41-98a6-9eca77ba044d",
                             TwoFactorEnabled = false,
                             UserName = "User123@gmail.com"
                         });

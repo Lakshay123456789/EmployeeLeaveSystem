@@ -1,3 +1,4 @@
+using AutoMapper;
 using BusinessLogicLayer.AccountService;
 using BusinessLogicLayer.AccountService.Interface;
 using BusinessLogicLayer.EmployeeService;
@@ -85,6 +86,9 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
+
+// AutoMapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Add services to the container.
 
 builder.Services.AddScoped<IEmployeeService,EmployeeService>();

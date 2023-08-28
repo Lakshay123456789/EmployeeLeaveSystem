@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,10 +20,12 @@ namespace DataAccessLayer.Repository
     {
         private readonly IConfiguration iconfiguration;
         private readonly UserManager<User> _userManager;
-        public JWTManagerRepository(IConfiguration iconfiguration, UserManager<User> userManager)
+        private readonly IGenericRepository<User> _userGenericRepository;
+        public JWTManagerRepository(IConfiguration iconfiguration, UserManager<User> userManager, IGenericRepository<User> userGenericRepository)
         {
             this.iconfiguration = iconfiguration;
             this._userManager = userManager;
+            _userGenericRepository = userGenericRepository;
         }
 
         public async Task<ResponseRegistration> Register(UserRegistrationModel userModel)
@@ -45,7 +48,13 @@ namespace DataAccessLayer.Repository
                     IsEmail = false
                 };
             }
-            var result = await _userManager.CreateAsync(existUser, userModel.Password);
+
+            var hasher = new PasswordHasher<IdentityUser>();
+
+            existUser.PasswordHash = hasher.HashPassword(null, userModel.Password);
+
+            await _userGenericRepository.SaveAsync();
+
 
 
             return new ResponseRegistration
@@ -66,15 +75,15 @@ namespace DataAccessLayer.Repository
                     IsSuccess = false
                 };
             }
-           var userCorrect= await _userManager.CheckPasswordAsync(user, usermodel.Password);
-            if(userCorrect == false)
+            var userCorrect = await _userManager.CheckPasswordAsync(user, usermodel.Password);
+            if (userCorrect == false)
             {
-                 return new ResponseLogin { IsSuccess = false };
+                return new ResponseLogin { IsSuccess = false };
             }
 
-            var userRole = await _userManager.GetRolesAsync(user); 
-            
-            var result =  GenerateJwtToken(usermodel.Email, userRole);
+            var userRole = await _userManager.GetRolesAsync(user);
+
+            var result = GenerateJwtToken(usermodel.Email, userRole);
 
             return new ResponseLogin
             {
@@ -109,6 +118,24 @@ namespace DataAccessLayer.Repository
             return tokenHandler.WriteToken(token);
         }
 
+        public async Task<bool> RegistrationNewEmployee(User model)
+        {
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user != null)
+            {
+                return false;
+            }
+            await _userGenericRepository.InsertAsync(model);
+
+            await _userManager.AddToRoleAsync(model, "Employee");
+            return true;
+
+        }
+        public async Task<User> GetUserAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            return user;
+        }
 
     }
 }

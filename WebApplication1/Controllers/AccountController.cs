@@ -30,5 +30,17 @@ namespace WebApplication1.Controllers
             return NotFound();
 
         }
+        [HttpPost("SetPasswordEmployee")]
+
+        public async Task<IActionResult> Registration(UserRegistrationModel model)
+        {
+            var result = await _accountService.SetPasswordEmployee(model);
+            if (result.IsSuccess)
+            {
+                return Ok("Successfull");
+            }
+            return NotFound("Something went be wrong");
+
+        }
     }
 }

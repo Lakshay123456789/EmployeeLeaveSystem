@@ -21,7 +21,7 @@ namespace Models.DbContext
                     Id = "2c5e174e-3b0e-446f-86af-483d56fd7210",
                     Name = "Admin",
                     NormalizedName = "Admin".ToUpper(),
-                   
+
                 }
                 );
             //Seeding a  'Administrator' role to AspNetRoles table
@@ -39,13 +39,13 @@ namespace Models.DbContext
                new User()
                {
                    Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
-                   FirstName="admin".ToUpper(),
+                   FirstName = "admin".ToUpper(),
                    UserName = "Admin123@gmail.com",
                    Email = "Admin123@gmail.com",
                    NormalizedUserName = "Admin123@gmail.com".ToUpper(),
                    NormalizedEmail = "Admin123@gmail.com".ToUpper(),
                    PasswordHash = hasher.HashPassword(null, "admin@123"),
-              
+
                }
                 );
 
@@ -56,12 +56,12 @@ namespace Models.DbContext
              Id = "C4623A85-4A75-4020-BD41-D22B366F8ED7",
              FirstName = "user".ToUpper(),
              UserName = "User123@gmail.com",
-          Email = "User123@gmail.com",
-          NormalizedUserName = "User123@gmail.com".ToUpper(),
-          NormalizedEmail = "User123@gmail.com".ToUpper(),
-          PasswordHash = hasher.HashPassword(null, "user@123"),
-     
-      }
+             Email = "User123@gmail.com",
+             NormalizedUserName = "User123@gmail.com".ToUpper(),
+             NormalizedEmail = "User123@gmail.com".ToUpper(),
+             PasswordHash = hasher.HashPassword(null, "user@123"),
+
+         }
        );
             //Seeding the relation between our user and role to AspNetUserRoles table
 
@@ -80,6 +80,14 @@ namespace Models.DbContext
                     UserId = "C4623A85-4A75-4020-BD41-D22B366F8ED7" //C4623A85-4A75-4020-BD41-D22B366F8ED7
                 }
                 );
+            modelBuilder.Entity<Department>().HasData(
+               new Department
+               {
+                   Id = 1,
+                   DepartmentName = "IT"
+               }
+               );
+
         }
     }
 }
