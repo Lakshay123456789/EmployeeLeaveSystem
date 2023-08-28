@@ -1,4 +1,6 @@
-﻿namespace DataAccessLayer.Repository.Interface
+﻿using Models.Entity_Model;
+
+namespace DataAccessLayer.Repository.Interface
 {
     public interface IGenericRepository<T>
     {
@@ -8,5 +10,7 @@
         Task InsertAsync(T entity);
         Task SaveAsync();
         void Update(T entity);
+        Task DeleteByIdAsync(object id);
+        Task<List<LeaveRequest>> GetAllUsersLeave(Guid Id);
     }
 }

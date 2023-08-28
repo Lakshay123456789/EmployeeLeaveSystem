@@ -86,7 +86,7 @@ namespace WebApplication1.Controllers
                 NotFound("something is missing");
 
             }
-            NotFound("Id not null be");
+            NotFound("Id not be null ");
 
         }
     }

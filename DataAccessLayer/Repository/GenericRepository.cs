@@ -5,6 +5,7 @@ using Models.Entity_Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -58,6 +59,12 @@ namespace DataAccessLayer.Repository
             await _context.SaveChangesAsync();
         }
 
+        public async Task<List<LeaveRequest>> GetAllUsersLeave(Guid Id)
+        {
+
+            var leaveUser= await _context.LeaveRequests.Where(x=>x.Id==Id).ToListAsync();
+            return leaveUser;
+        }
 
     }
 }
