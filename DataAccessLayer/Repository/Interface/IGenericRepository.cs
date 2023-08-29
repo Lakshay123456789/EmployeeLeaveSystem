@@ -10,7 +10,7 @@ namespace DataAccessLayer.Repository.Interface
         Task InsertAsync(T entity);
         Task SaveAsync();
         void Update(T entity);
-        Task DeleteByIdAsync(object id);
+    //    Task DeleteByIdAsync(object id);
         Task<List<LeaveRequest>> GetAllUsersLeave(Guid Id);
     }
 }

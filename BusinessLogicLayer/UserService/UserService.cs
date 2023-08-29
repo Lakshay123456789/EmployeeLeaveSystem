@@ -1,5 +1,7 @@
-﻿using BusinessLogicLayer.UserService.Interface;
+﻿using AutoMapper;
+using BusinessLogicLayer.UserService.Interface;
 using DataAccessLayer.Repository.Interface;
+using Models.Dto_Model;
 using Models.Entity_Model;
 using System;
 using System.Collections.Generic;
@@ -12,11 +14,12 @@ namespace BusinessLogicLayer.UserService
 {
     public class UserService : IUserService
     {
+        private readonly IMapper _mapper;
         private readonly IGenericRepository<LeaveRequest> _LeavegenericRepository;
 
-        public UserService(IGenericRepository<LeaveRequest> LeavegenericRepository)
+        public UserService(IGenericRepository<LeaveRequest> LeavegenericRepository,IMapper mapper)
         {
-
+            _mapper = mapper;
             _LeavegenericRepository = LeavegenericRepository;
         }
 
@@ -27,6 +30,15 @@ namespace BusinessLogicLayer.UserService
 
         }
 
+        public async Task ApplyForLeave(LeaveRequestDto leaveRequestDto)
+        {
+            var leaveRequest= _mapper.Map<LeaveRequest>(leaveRequestDto);
+
+            await _LeavegenericRepository.InsertAsync(leaveRequest);
+
+        }
+        
+        
 
     }
 }

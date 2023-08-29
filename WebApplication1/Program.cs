@@ -3,6 +3,8 @@ using BusinessLogicLayer.AccountService;
 using BusinessLogicLayer.AccountService.Interface;
 using BusinessLogicLayer.EmployeeService;
 using BusinessLogicLayer.EmployeeService.Interface;
+using BusinessLogicLayer.UserService;
+using BusinessLogicLayer.UserService.Interface;
 using DataAccessLayer.Repository;
 using DataAccessLayer.Repository.Interface;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -51,12 +53,12 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true
     };
 });
-//builder.Services.AddCors(policyBuilder =>
-//    policyBuilder.AddDefaultPolicy(policy =>
-//        policy.WithOrigins("*")
-//        .AllowAnyHeader()
-//        .AllowAnyHeader())
-//);
+builder.Services.AddCors(policyBuilder =>
+    policyBuilder.AddDefaultPolicy(policy =>
+        policy.WithOrigins("*")
+        .AllowAnyHeader()
+        .AllowAnyHeader())
+);
 // token authentication
 
 builder.Services.AddSwaggerGen(option =>
@@ -93,6 +95,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IEmployeeService,EmployeeService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 
 // Repositiory  add

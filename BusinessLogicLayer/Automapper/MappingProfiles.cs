@@ -14,6 +14,7 @@ namespace BusinessLogicLayer.Automapper
         public MappingProfiles() {
 
             CreateMap<EmployeeDto, Employee>();
+            CreateMap<LeaveRequestDto,LeaveRequest>(); 
         }
 
     }

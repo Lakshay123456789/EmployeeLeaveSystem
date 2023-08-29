@@ -54,5 +54,7 @@ namespace Models.Entity_Model
         [ForeignKey("Employee")]
 
         public Guid EmployeeId { get;set; }
+
+        public bool IsCancel { get; set; }=false;
     }
 }
