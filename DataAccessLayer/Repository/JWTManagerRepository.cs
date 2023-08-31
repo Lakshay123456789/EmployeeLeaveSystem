@@ -81,14 +81,16 @@ namespace DataAccessLayer.Repository
                 return new ResponseLogin { IsSuccess = false };
             }
 
-            var userRole = await _userManager.GetRolesAsync(user);
+            var userrole = await _userManager.GetRolesAsync(user);
 
-            var result = GenerateJwtToken(usermodel.Email, userRole);
+            var result = GenerateJwtToken(usermodel.Email, userrole);
 
             return new ResponseLogin
             {
                 Token = result,
                 IsSuccess = true,
+                UserRole = userrole[0].ToString(),
+                UserName= usermodel.Email
             };
 
         }

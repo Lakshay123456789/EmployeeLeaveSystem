@@ -9,13 +9,15 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicLayer.Automapper
 {
-     public  class MappingProfiles:Profile
+    public class MappingProfiles : Profile
     {
-        public MappingProfiles() {
+        public MappingProfiles()
+        {
 
             CreateMap<EmployeeDto, Employee>();
-            CreateMap<LeaveRequestDto,LeaveRequest>(); 
-        }
+            CreateMap<LeaveRequestDto, LeaveRequest>();
+            CreateMap<DepartmentDto, Department>();
 
+        }
     }
 }

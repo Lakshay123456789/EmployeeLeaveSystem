@@ -1,4 +1,5 @@
-﻿using BusinessLogicLayer.EmployeeService.Interface;
+﻿using BusinessLogicLayer.DepartementService.Interface;
+using BusinessLogicLayer.EmployeeService.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,9 +14,11 @@ namespace WebApplication1.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeService _employeeService;
+       private readonly IDepartmentService _departmentService;
 
-        public EmployeeController(IEmployeeService employeeService)
+        public EmployeeController(IEmployeeService employeeService,IDepartmentService departmentService)
         {
+            _departmentService = departmentService;
             _employeeService = employeeService;
         }
 
@@ -28,7 +31,7 @@ namespace WebApplication1.Controllers
             {
                 return Ok(employee);
             }
-            return Ok();
+            return NotFound("not employee found");
 
         }
 
@@ -89,5 +92,39 @@ namespace WebApplication1.Controllers
             NotFound("Id not be null ");
 
         }
+        [HttpGet("AllDepartment")]
+        public async Task<IActionResult> GetAllDepartment()
+        {
+            var departments = await _departmentService.GetAllDepartment();
+            if (departments != null)
+            {
+                return Ok(departments);
+            }
+            return NotFound("not department found");
+        }
+        [HttpPost("AddNewDepartment")]
+        public async Task AddNewDepartments(DepartmentDto model)
+        {
+            if (ModelState.IsValid)
+            {
+                await _departmentService.addDepartment(model);
+            }
+        }
+        [HttpGet("getByDepartmentId")]
+        public async Task<IActionResult> GetByDepartmentsId(int Id)
+        {
+            if (int.TryParse(Id.ToString(), out Id))
+            {
+                var result = await _departmentService.GetDepartmentById(Id);
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                return NotFound("This Id have not any  department found");
+            }
+            return NotFound("something are wrong");
+        }
+
+
     }
 }

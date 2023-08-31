@@ -1,6 +1,8 @@
 using AutoMapper;
 using BusinessLogicLayer.AccountService;
 using BusinessLogicLayer.AccountService.Interface;
+using BusinessLogicLayer.DepartementService;
+using BusinessLogicLayer.DepartementService.Interface;
 using BusinessLogicLayer.EmployeeService;
 using BusinessLogicLayer.EmployeeService.Interface;
 using BusinessLogicLayer.UserService;
@@ -96,6 +98,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IEmployeeService,EmployeeService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 
 
 // Repositiory  add
