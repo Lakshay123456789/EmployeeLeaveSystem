@@ -5,6 +5,7 @@ using BusinessLogicLayer.DepartementService;
 using BusinessLogicLayer.DepartementService.Interface;
 using BusinessLogicLayer.EmployeeService;
 using BusinessLogicLayer.EmployeeService.Interface;
+using BusinessLogicLayer.FileService;
 using BusinessLogicLayer.UserService;
 using BusinessLogicLayer.UserService.Interface;
 using DataAccessLayer.Repository;
@@ -99,6 +100,7 @@ builder.Services.AddScoped<IEmployeeService,EmployeeService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+builder.Services.AddScoped<ICSVService, CSVService>();
 
 
 // Repositiory  add

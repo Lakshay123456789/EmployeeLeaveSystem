@@ -67,8 +67,8 @@ namespace BusinessLogicLayer.EmployeeService
             var previosEmployee = await GetEmployeeId(Id);
             if (previosEmployee != null)
             {
-                var updateEmployee = _mapper.Map<Employee>(employee);
-                _employeegenericRepository.Update(updateEmployee);
+                    _mapper.Map(employee,previosEmployee);
+                _employeegenericRepository.Update(previosEmployee);
             }
         }
 

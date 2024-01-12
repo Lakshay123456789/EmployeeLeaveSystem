@@ -25,40 +25,65 @@ namespace WebApplication1.Controllers
         [HttpGet("GetAllEmployee")]
         public async Task<IActionResult> GetAllEmployee()
         {
-
-            var employee = await _employeeService.GetAllEmployee();
-            if (employee != null)
+            try
             {
-                return Ok(employee);
+                var employee = await _employeeService.GetAllEmployee();
+                if (employee != null)
+                {
+                    return Ok(employee);
+                }
+                return NotFound("not employee found");
             }
-            return NotFound("not employee found");
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+           
 
         }
 
         [HttpPost("AddNewEmployee")]
         public async Task<IActionResult> AddNewEmployee(EmployeeDto model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var result = await _employeeService.AddEmployee(model);
-                if (result)
+                if (ModelState.IsValid)
                 {
-                    return Ok("successfully add employee and registration");
+                    var result = await _employeeService.AddEmployee(model);
+                    if (result)
+                    {
+                        return Ok("successfully add employee and registration");
+                    }
+                    return NotFound("this email Id Already exist");
                 }
-                return NotFound("this email Id Already exist");
+                return NotFound("Something is wrong");
             }
-            return NotFound("Something is wrong");
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+         
         }
         [HttpDelete("Delete Employee")]
-
+      
+      
         public async Task<IActionResult> DeleteEmployee(Guid Id)
         {
-            if (Id != Guid.Empty)
+            try
             {
-                await _employeeService.DeleteEmployee(Id);
-                return Ok("Delete Employee Successfully");
+                if (Id != Guid.Empty)
+                {
+                    await _employeeService.DeleteEmployee(Id);
+                    return Ok("Delete Employee Successfully");
+                }
+                return NotFound("Id not be null");
+
             }
-            return NotFound("Id not be null");
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+           
 
         }
 
@@ -66,63 +91,112 @@ namespace WebApplication1.Controllers
 
         public async Task<IActionResult> GetEmployeeId(Guid Id)
         {
-            if (Id != Guid.Empty)
+            try
             {
-                var result = await _employeeService.GetEmployeeId(Id);
+                if (Id != Guid.Empty)
+                {
+                    var result = await _employeeService.GetEmployeeId(Id);
 
-                return Ok(result);
+                    return Ok(result);
+                }
+                return NotFound("Id not be null");   
+
             }
-            return NotFound("Id not be null");
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+           
         }
 
         [HttpPut("editEmployee")]
 
         public async Task UpdateEmployeeRecord(Guid Id, EmployeeDto model)
         {
-            if (Id != Guid.Empty)
+            try
             {
-                if (ModelState.IsValid)
+                if (Id != Guid.Empty)
                 {
-                    await _employeeService.UpdateEmployee(Id, model);
-                    Ok("successfully edit this Employee");
+                    if (ModelState.IsValid)
+                    {
+                        await _employeeService.UpdateEmployee(Id, model);
+                        Ok("successfully edit this Employee");
+                    }
+                    NotFound("something is missing");
+
                 }
-                NotFound("something is missing");
+                NotFound("Id not be null ");
 
             }
-            NotFound("Id not be null ");
+            catch (Exception ex)
+            {
+                BadRequest(ex.Message);
+            }
+            
 
         }
         [HttpGet("AllDepartment")]
         public async Task<IActionResult> GetAllDepartment()
         {
-            var departments = await _departmentService.GetAllDepartment();
-            if (departments != null)
+            try
             {
-                return Ok(departments);
+                var departments = await _departmentService.GetAllDepartment();
+                if (departments != null)
+                {
+                    return Ok(departments);
+                }
+                return NotFound("not department found");
             }
-            return NotFound("not department found");
+            catch (Exception ex)
+            {
+                 return BadRequest(ex.Message);
+            }
+           
         }
         [HttpPost("AddNewDepartment")]
         public async Task AddNewDepartments(DepartmentDto model)
         {
-            if (ModelState.IsValid)
-            {
-                await _departmentService.addDepartment(model);
+            try {
+
+                if (ModelState.IsValid)
+                {
+                    await _departmentService.addDepartment(model);
+                    Ok("department successfully");
+                }
+
+                NotFound("something went be wrong");
+
             }
+            catch (Exception ex)
+            {
+                BadRequest(ex.Message);
+            }
+            
         }
         [HttpGet("getByDepartmentId")]
+        [ProducesResponseType(typeof(IEnumerable<Department>),200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetByDepartmentsId(int Id)
         {
-            if (int.TryParse(Id.ToString(), out Id))
+            try
             {
-                var result = await _departmentService.GetDepartmentById(Id);
-                if (result != null)
+                if (int.TryParse(Id.ToString(), out Id))
                 {
-                    return Ok(result);
+                    var result = await _departmentService.GetDepartmentById(Id);
+                    if (result != null)
+                    {
+                        return Ok(result);
+                    }
+                    return NotFound("This Id have not any  department found");
                 }
-                return NotFound("This Id have not any  department found");
+                return NotFound("something are wrong");
+
             }
-            return NotFound("something are wrong");
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+          
         }
 
 

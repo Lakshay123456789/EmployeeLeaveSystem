@@ -14,5 +14,7 @@ namespace Models.Entity_Model
 
         [Required]
         public string  ? DepartmentName { get; set; }
+
+        public DateTime? CreatedDate { get; set; } = DateTime.Now;
     }
 }

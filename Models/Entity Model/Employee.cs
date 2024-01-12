@@ -36,6 +36,8 @@ namespace Models.Entity_Model
 
         [ForeignKey("Department")]
         public int ? DepartmentId { get; set; }
+
+        public bool IsDeleted { get; set; }= true;
          
 
     }
